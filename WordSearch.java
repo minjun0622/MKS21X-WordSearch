@@ -7,9 +7,13 @@ public class WordSearch {
      *@param col is the starting width of the WordSearch
      */
     public WordSearch(int rows, int cols){
-        data[][] = new char[rows][cols];
-        clear();
-    }
+        data = new char[rows][cols];
+        for (int i = 0; i < data.length; i++) {
+          for (int x = 0; x < data[i].length; x++) {
+            data[i][x] = '_';
+          }
+        }
+      }
 
     /**Set all values in the WordSearch to underscores'_'*/
     private void clear(){
@@ -27,12 +31,10 @@ public class WordSearch {
     public String toString(){
       String s = "";
       for (int i = 0; i < data.length; i++) {
-        for (int x = 0; x < data[x].length; x++) {
-          s += data[i][x] + " ";
+        for (int x = 0; x < data[i].length; x++) {
+          s += data[i][x];
         }
-        if (i == data.length - 1) {
-          s += "\n";
-        }
+        s += "\n";
       }
       return s;
     }
@@ -50,21 +52,22 @@ public class WordSearch {
      * and the board is NOT modified.
      */
     public boolean addWordHorizontal(String word, int row, int col){
-      if (word.length > data[row].length - col)
-      return false;
-      for (int i = 0; i < word.length; i++) {
-        if (data[row][col] != word.charAt(i) && data[row][col] != '_') {
-          return false;
+      if (word.length() > data[row].length - col) {
+        return false;
+      }
+        int col2 = col;
+        for (int i = 0; i < word.length(); i++) {
+          if (data[row][col2] != '_' && data[row][col2] != word.charAt(i)) {
+            return false;
+          }
+          col2++;
         }
-        col++;
+        for (int i = 0; i < word.length(); i++) {
+          data[row][col] = word.charAt(i);
+          col++;
+        }
+        return true;
       }
-      int col = count;
-      for (int i = 0; i < word.length; i++) {
-        data[row][col] = word.charAt(i);
-        count++;
-      }
-      return true;
-    }
 
    /**Attempts to add a given word to the specified position of the WordGrid.
      *The word is added from top to bottom, must fit on the WordGrid, and must
@@ -78,20 +81,20 @@ public class WordSearch {
      *and the board is NOT modified.
      */
     public boolean addWordVertical(String word, int row, int col){
-      if (word.length > data.length - col) {
+      if (word.length() > data.length - row) {
         return false;
       }
+      int row2 = row;
       for (int i = 0; i < word.length(); i++) {
-        if (data[row][col] != '_' && data[row][col] != word.charAt(i)) {
+        if (data[row2][col] != '_' && data[row2][col] != word.charAt(i)) {
           return false;
         }
-        row++;
+        row2++;
       }
-      int row = count;
-      for (int i =0; i < word.length(); i++) {
-        data[count][col] = word.charAt(i);
-        count++;
+        for (int i = 0; i < word.length(); i++) {
+          data[row][col] = word.charAt(i);
+          row++;
+        }
+        return true;
       }
-      return true;
     }
-}
