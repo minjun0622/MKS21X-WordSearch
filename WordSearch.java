@@ -1,4 +1,4 @@
-public class WordSearch{
+public class WordSearch {
     private char[][]data;
 
     /**Initialize the grid to the size specified
@@ -7,10 +7,17 @@ public class WordSearch{
      *@param col is the starting width of the WordSearch
      */
     public WordSearch(int rows, int cols){
+        data[][] = new char[rows][cols];
+        clear();
     }
 
     /**Set all values in the WordSearch to underscores'_'*/
     private void clear(){
+      for (int i = 0; i < data.length; i++) {
+        for (int x = 0; x < data[i].length; x++) {
+          data[i][x] = '_';
+        }
+      }
     }
 
     /**Each row is a new line, there is a space between each letter
@@ -18,6 +25,9 @@ public class WordSearch{
      *separated by newlines.
      */
     public String toString(){
+
+
+
     }
 
 
