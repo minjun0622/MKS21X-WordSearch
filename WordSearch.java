@@ -51,19 +51,13 @@ public class WordSearch {
       if (word.length() + col > data[0].length) {
       return false;
     }
-      if (word.length() > data[row].length - col) {
-        return false;
-      }
-        int col2 = col;
         for (int i = 0; i < word.length(); i++) {
-          if (data[row][col2] != '_' && data[row][col2] != word.charAt(i)) {
+          if (data[row][col + i] != '_' && data[row][col + i] != word.charAt(i)) {
             return false;
-          }
-          col2++;
         }
-        for (int i = 0; i < word.length(); i++) {
-          data[row][col] = word.charAt(i);
-          col++;
+      }
+        for (int x = 0; x < word.length(); x++) {
+          data[row][col + x] = word.charAt(x);
         }
         return true;
       }
@@ -86,16 +80,13 @@ public class WordSearch {
       if (word.length() > data.length - row) {
         return false;
       }
-      int row2 = row;
       for (int i = 0; i < word.length(); i++) {
-        if (data[row2][col] != '_' && data[row2][col] != word.charAt(i)) {
+        if (data[row + i][col] != '_' && data[row+ i][col] != word.charAt(i)) {
           return false;
         }
-        row2++;
       }
-        for (int i = 0; i < word.length(); i++) {
-          data[row][col] = word.charAt(i);
-          row++;
+        for (int x = 0; x < word.length(); x++) {
+          data[row + x][col] = word.charAt(x);
         }
         return true;
       }
@@ -109,7 +100,7 @@ public class WordSearch {
         }
         if (data.length - row >= word.length() && data[row].length - col >= word.length()) {
           for (int i = 0; i < data.length && i < word.length(); i++) {
-          if (data [i + row][i + col] != '_' && data[i + row][i + col] != word.charAt()) {
+          if (data [i + row][i + col] != '_' && data[i + row][i + col] != word.charAt(i)) {
           return false;
         }
         }
