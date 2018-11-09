@@ -8,12 +8,8 @@ public class WordSearch {
      */
     public WordSearch(int rows, int cols){
         data = new char[rows][cols];
-        for (int i = 0; i < data.length; i++) {
-          for (int x = 0; x < data[i].length; x++) {
-            data[i][x] = '_';
+        clear();
           }
-        }
-      }
 
     /**Set all values in the WordSearch to underscores'_'*/
     private void clear(){
@@ -52,6 +48,9 @@ public class WordSearch {
      * and the board is NOT modified.
      */
     public boolean addWordHorizontal(String word, int row, int col){
+      if (word.length() + col > data[0].length) {
+      return false;
+    }
       if (word.length() > data[row].length - col) {
         return false;
       }
@@ -81,6 +80,9 @@ public class WordSearch {
      *and the board is NOT modified.
      */
     public boolean addWordVertical(String word, int row, int col){
+      if (row + word.length() > data.length || row < 0 || col < 0|| col > data[0].length) {
+        return false;
+      }
       if (word.length() > data.length - row) {
         return false;
       }
@@ -97,4 +99,25 @@ public class WordSearch {
         }
         return true;
       }
+
+      public boolean addWordDiagonal (String word, int row, int col) {
+        if (row < 0 || col < 0) {
+          return false;
+        }
+        if (row >= data.length || col >= data[row].length) {
+          return false;
+        }
+        if (data.length - row >= word.length() && data[row].length - col >= word.length()) {
+          for (int i = 0; i < data.length && i < word.length(); i++) {
+          if (data [i + row][i + col] != '_' && data[i + row][i + col] != word.charAt()) {
+          return false;
+        }
+        }
+        for (int x = 0; x < data.length && x < data[row].length; x++) {
+          if (x < word.length()) data[row +x][col + x] = word.charAt(x);
+        }
+        return true;
+      }
+      return false;
     }
+  }
