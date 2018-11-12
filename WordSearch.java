@@ -17,6 +17,19 @@ public class WordSearch {
   //Two Constructors:
 //: choose a randSeed using the clock random
   public WordSearch( int rows, int cols, String fileName) throws FileNotFoundException {
+    if (rows  < 0 || cols < 0) {
+      throw new IllegalArgumentException("Rows or columns can't be negative.")
+    }
+      data = new char[rows][cols];
+      for (int i = 0; i < data.length; ++i){
+        for (int x = 0; x < data[i].length; ++x){
+          data[i][x] = '_';
+        }
+    }
+    clear();
+    addAllWords();
+  }
+
 
 
   public WordSearch( int rows, int cols, String fileName, int randSeed)
@@ -75,7 +88,7 @@ public class WordSearch {
         }
         s += "\n" + "Words: " + wordsAdded + " (Seed: " + seed + ")";
         return s;
-      }  
+      }
 
 
 
