@@ -16,49 +16,74 @@ public class WordSearch {
 
   //Two Constructors:
 //: choose a randSeed using the clock random
-  public WordSearch( int rows, int cols, String fileName) throws FileNotFoundException {
+
+/*
+    Both will read in the word text file, then run addAllWords(). Do not fill in random letters after.
+
+//toString should print in the following format:
+//use '|' as left/right boundaries of the grid.
+//One long line of comma separated words after the string "Words: "
+
+|_ _ F _|
+|_ A I _|
+|D _ S _|
+|M E H _|
+Words: FAD, FISH, MEH
+*/
+
+  /**Initialize the grid to the size specified
+   *and fill all of the positions with '_'
+   *@param row is the starting height of the WordSearch
+   *@param col is the starting width of the WordSearch
+   */
+
+  /**Set all values in the WordSearch to underscores'_'*/
+  public WordSearch( int rows, int cols, String fileName) {
     if (rows  < 0 || cols < 0) {
       throw new IllegalArgumentException("Rows or columns can't be negative.")
     }
       data = new char[rows][cols];
-      for (int i = 0; i < data.length; ++i){
-        for (int x = 0; x < data[i].length; ++x){
-          data[i][x] = '_';
+      wordsToAdd = new ArrayList();
+      wordsAdded = new ArrayList();
+      clear();
+      randgen = new Random();
+      seed = randgen.nextInt();
+      try {
+        File f = new File(fileName);
+        Scanner s = new Scanner(f);
+        while (s.isNext()) {
+          String str = s.nextLine().toUpperCase();
+          wordsToAdd.add(str);
+          wordsAdded.add(str);
         }
+      } catch (FileNotFoundException e ) {
+        System.out.println("File not found: " + fileName);
+        System.exit(1);
+        }
+      }
+
+  public WordSearch( int rows, int cols, String fileName, int randSeed) {
+    if (rows < 0 || cols < 0) {
+      throw new IllegalArgumentException("Cannot take in negative rows / cols.");
     }
-    clear();
-    addAllWords();
-  }
+      data = new char[rows][cols];
+    wordsToAdd = new ArrayList();
+      wordsAdded = new ArrayList();
+      randgen = new Random(randSeed);
+      try {
+        File f = new File(fileName);
+        Scanner s = new Scanner(f);
+        while (s.isNext()) {
+          String str = s.nextLine().toUpperCase();
+          wordsToAdd.add(str);
+          wordsAdded.add(str);
+        }
+      } catch (FileNotFoundException e ) {
+        System.out.println("File not found: " + fileName);
+        System.exit(1);
+      }
+    }
 
-
-
-  public WordSearch( int rows, int cols, String fileName, int randSeed)
-  /*
-      Both will read in the word text file, then run addAllWords(). Do not fill in random letters after.
-
-  //toString should print in the following format:
-  //use '|' as left/right boundaries of the grid.
-  //One long line of comma separated words after the string "Words: "
-
-  |_ _ F _|
-  |_ A I _|
-  |D _ S _|
-  |M E H _|
-  Words: FAD, FISH, MEH
-  */
-
-    /**Initialize the grid to the size specified
-     *and fill all of the positions with '_'
-     *@param row is the starting height of the WordSearch
-     *@param col is the starting width of the WordSearch
-     */
-    public WordSearch(int rows, int cols){
-        data = new char[rows][cols];
-        clear();
-        addAllWords();
-          }
-
-    /**Set all values in the WordSearch to underscores'_'*/
     private void clear(){
       for (int i = 0; i < data.length; i++) {
         for (int x = 0; x < data[i].length; x++) {
