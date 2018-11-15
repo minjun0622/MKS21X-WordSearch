@@ -1,36 +1,14 @@
-import java.util.*; //random, scanner, arraylist
-import java.io.*; //file, filenotfoundexception
+//Minjun Seo
+import java.util.*;
+import java.io.*;
 public class WordSearch {
     private char[][]data;
   private int seed;
   private Random randgen;
   private ArrayList<String>wordsToAdd;
   private ArrayList<String>wordsAdded;
-  //Two Constructors:
-//: choose a randSeed using the clock random
 
-/*
-    Both will read in the word text file, then run addAllWords(). Do not fill in random letters after.
-
-//toString should print in the following format:
-//use '|' as left/right boundaries of the grid.
-//One long line of comma separated words after the string "Words: "
-
-|_ _ F _|
-|_ A I _|
-|D _ S _|
-|M E H _|
-Words: FAD, FISH, MEH
-*/
-
-  /**Initialize the grid to the size specified
-   *and fill all of the positions with '_'
-   *@param row is the starting height of the WordSearch
-   *@param col is the starting width of the WordSearch
-   */
-
-  /**Set all values in the WordSearch to underscores'_'*/
-
+//Constructors
   public WordSearch( int rows, int cols, String fileName) {
     if (rows  < 0 || cols < 0) {
       throw new IllegalArgumentException("Rows or columns can't be negative.")
@@ -76,7 +54,7 @@ Words: FAD, FISH, MEH
         System.exit(1);
       }
     }
-
+/*
 public WordSearch (filename, rows, coles, seed boolean key) {
   data = new[][];
   clear();
@@ -85,6 +63,7 @@ public WordSearch (filename, rows, coles, seed boolean key) {
 
   }
 }
+*/
     private void clear(){
       for (int i = 0; i < data.length; i++) {
         for (int x = 0; x < data[i].length; x++) {
@@ -116,62 +95,6 @@ public WordSearch (filename, rows, coles, seed boolean key) {
         return s;
       }
 
-/*
-    public boolean addWordHorizontal(String word, int row, int col){
-      if (word.length() + col > data[0].length) {
-      return false;
-    }
-        for (int i = 0; i < word.length(); i++) {
-          if (data[row][col + i] != '_' && data[row][col + i] != word.charAt(i)) {
-            return false;
-        }
-      }
-        for (int x = 0; x < word.length(); x++) {
-          data[row][col + x] = word.charAt(x);
-        }
-        return true;
-      }
-
-    public boolean addWordVertical(String word, int row, int col){
-      if (row + word.length() > data.length || row < 0 || col < 0|| col > data[0].length) {
-        return false;
-      }
-      if (word.length() > data.length - row) {
-        return false;
-      }
-      for (int i = 0; i < word.length(); i++) {
-        if (data[row + i][col] != '_' && data[row+ i][col] != word.charAt(i)) {
-          return false;
-        }
-      }
-        for (int x = 0; x < word.length(); x++) {
-          data[row + x][col] = word.charAt(x);
-        }
-        return true;
-      }
-
-      public boolean addWordDiagonal (String word, int row, int col) {
-        if (row < 0 || col < 0) {
-          return false;
-        }
-        if (row >= data.length || col >= data[row].length) {
-          return false;
-        }
-        if (data.length - row >= word.length() && data[row].length - col >= word.length()) {
-          for (int i = 0; i < data.length && i < word.length(); i++) {
-          if (data [i + row][i + col] != '_' && data[i + row][i + col] != word.charAt(i)) {
-          return false;
-        }
-        }
-        for (int x = 0; x < data.length && x < data[row].length; x++) {
-          if (x < word.length()) data[row +x][col + x] = word.charAt(x);
-        }
-        return true;
-      }
-      return false;
-    }
-*/
-
     //Two Methods
     /**Attempts to add a given word to the specified position of the WordGrid.
    *The word is added in the direction rowIncrement,colIncrement
@@ -186,48 +109,76 @@ public WordSearch (filename, rows, coles, seed boolean key) {
    *        false when: the word doesn't fit, OR  rowchange and colchange are both 0,
    *        OR there are overlapping letters that do not match
    */
-private boolean addWord( int row, int col, String word, int rowIncrement, int colIncrement) {
-if ( (colIncrement = 0 && rowIncrement = 0 ) || colIncrement < 0 || rowIncrement < 0 ||) {
+private boolean addWord(int row, int col, String word, int rowIncrement, int colIncrement) {
+if ( (colIncrement = 0 && rowIncrement = 0 ) ||  {
   return false;
   //checks for negative row, col, and if rowIncrement and colIncrement are zero.
 }
 for (int i = 0; i < word.length(); i++) {
-  if (colIncrement > 1 && rowIncrement = 0) {
-    int [] datacol = data[col];
+  if (colIncrement = 1 && rowIncrement = 0) {
+    char [] datacol = data[col];
     if ( (length.datacol[] - row) > word.length() ) {
       return false;
     }
     else {
-      data[col][row] = word.charAt(i);
+      data[row][col + i] = word.charAt(i);
 }
 }
-if ()
+  if (colIncrement = 0 && rowIncrement = 1) {
+    char [] datarow = data[row];
+    if ( (length.datarow[] - row) > word.length() ) {
+      return false;
+    }
+    data[row + i][col]= word.charAt(i);
 }
+  if (colIncrement = 1 && rowIncrement = 1) {
+    if (word.length() > //diagonal movements
+    ) {}
+    data[row + i][col + i] = word.charAt(i);
+  }
 
-//If the colIncrement is positve and rowIncrement is 0, it's moving only ->. Add character by character.
-for (int x = 0; x < word.length; x--) {
-  if (colIncrement < 1 && rowIncrement = 0) {
-    int [] datanegcol = data[col];
+  if (colIncrement = -1 && rowIncrement = 0) {
+    if (word.length() > (length.datarow - row)) {
+      return false;
+    }
+    data[row-i][col] = word.charAt(i);
+  }
+
+  if (colIncrement = -1 && rowIncrement = 0) {
+    char [] datanegcol = data[col];
     if ( (row - length.datanegcol[]) > word.length() ) {
       return false;
     }
     else {
-      data[col][row] = word.charAt(x);
+      data[row][col - i] = word.charAt(i);
+    }
+  }
+
+  if (colIncrement = -1 && rowIncrement = -1) {
+    data[row - i][col - i] = word.charAt(i);
+  }
+}
+}
+
+private boolean addWord(String word, int r, int c, int rowIncrement, int colIncrement) {
+ if (word.length() {} arrayyyyy
+}
+private void addAllWords() {
+    if (addWord(Random word, row, col, Random colIncrement, Random rowIncrement)) {
+      //add the word to the place where all words are........
+    }
+    else {
+      if (Word = )
+
+    }
+
     }
 
   }
-}
-
 
 }
 
 
-
-    /*-when colIncrement and rowIncrement are both 0, return false.
-    -when you successfully add a word, move the word from wordsToAdd to wordsAdded, then return true.
-    -return false otherwise.
-    */
-private boolean addAllWords()
   /*-Attempt to add all of the words from the wordsToAdd list using the following algorithm:
     1-Choose a random word, and a random direction (rowIncrement/colIncrement)
     2-Trying to add that word to different starting positions until:
