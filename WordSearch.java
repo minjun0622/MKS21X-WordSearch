@@ -110,59 +110,40 @@ public WordSearch (filename, rows, coles, seed boolean key) {
    *        OR there are overlapping letters that do not match
    */
 private boolean addWord(int row, int col, String word, int rowIncrement, int colIncrement) {
-if ( (colIncrement = 0 && rowIncrement = 0 ) ||  {
+
+if ( (colIncrement = 0 && rowIncrement = 0 )  {
   return false;
   //checks for negative row, col, and if rowIncrement and colIncrement are zero.
 }
+  if (col + (word.length() * colIncrement) > data[0].length){
+        return false;
+      }
+  //checks if the word is greater than col.
+  if (row + (word.length() * rowIncrement) > data.length){
+        return false;
+      }
+      //checks rows.
+  if (col + (word.length() * colIncrement) < 0 ){
+        return false;
+      }
+      //checks col.
+  if (row + (word.length() * rowIncrement) < 0 ){
+        return false;
+      }
+      //checks col.
 for (int i = 0; i < word.length(); i++) {
-  if (colIncrement = 1 && rowIncrement = 0) {
-    char [] datacol = data[col];
-    if ( (length.datacol[] - row) > word.length() ) {
-      return false;
+  if (data[row][col] = '_' || data[row][col] == word.charAt(i)) {
+    data[row][col] = word.charAt(i);
+    row += rowIncrement;
+    col += colIncrement;
     }
     else {
-      data[row][col + i] = word.charAt(i);
-}
-}
-  if (colIncrement = 0 && rowIncrement = 1) {
-    char [] datarow = data[row];
-    if ( (length.datarow[] - row) > word.length() ) {
       return false;
     }
-    data[row + i][col]= word.charAt(i);
-}
-  if (colIncrement = 1 && rowIncrement = 1) {
-    if (word.length() > //diagonal movements
-    ) {}
-    data[row + i][col + i] = word.charAt(i);
   }
-
-  if (colIncrement = -1 && rowIncrement = 0) {
-    if (word.length() > (length.datarow - row)) {
-      return false;
-    }
-    data[row-i][col] = word.charAt(i);
-  }
-
-  if (colIncrement = -1 && rowIncrement = 0) {
-    char [] datanegcol = data[col];
-    if ( (row - length.datanegcol[]) > word.length() ) {
-      return false;
-    }
-    else {
-      data[row][col - i] = word.charAt(i);
-    }
-  }
-
-  if (colIncrement = -1 && rowIncrement = -1) {
-    data[row - i][col - i] = word.charAt(i);
-  }
-}
+  return true;
 }
 
-private boolean addWord(String word, int r, int c, int rowIncrement, int colIncrement) {
- if (word.length() {} arrayyyyy
-}
 private void addAllWords() {
     if (addWord(Random word, row, col, Random colIncrement, Random rowIncrement)) {
       //add the word to the place where all words are........
