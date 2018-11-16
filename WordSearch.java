@@ -72,10 +72,6 @@ public WordSearch (filename, rows, coles, seed boolean key) {
       }
     }
 
-    /**Each row is a new line, there is a space between each letter
-     *@return a String with each character separated by spaces, and rows
-     *separated by newlines.
-     */
     public String toString(){
       String s = "";
       for (int i = 0; i < data.length; i++) {
@@ -132,5 +128,9 @@ for (int i = 0; i < word.length(); i++) {
 
 private void addAllWords() {
   needAdd = getWord(fileName);
+  randgen = new Random(1);
+  addWord(randgen )
+  
+
 
   }
