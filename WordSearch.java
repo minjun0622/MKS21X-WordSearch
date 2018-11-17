@@ -1,14 +1,9 @@
 //Minjun Seo
-/*
-things to add during the weekend.
-the main
-addAllWords
-this is so hard i hateeeeé
-*/
+
 import java.util.*;
 import java.io.*;
 public class WordSearch {
-    private char[][]data;
+  private char[][]data;
   private int seed;
   private Random randgen;
   private ArrayList<String>wordsToAdd;
@@ -20,31 +15,20 @@ public class WordSearch {
       throw new IllegalArgumentException("Rows or columns can't be negative.");
     }
       data = new char[rows][cols];
-      wordsToAdd = new ArrayList();
-      wordsAdded = new ArrayList();
+      wordsToAdd = new ArrayList<String>();
+      wordsAdded = new ArrayList<String>();
       clear();
-      randgen = new Random();
-      seed = randgen.nextInt();
-      try {
-        File f = new File(fileName);
-        Scanner s = new Scanner(f);
-        while (s.isNext()) {
-          String str = s.nextLine().toUpperCase();
-          wordsToAdd.add(str);
-          wordsAdded.add(str);
-        }
-      } catch (FileNotFoundException e ) {
-        System.out.println("File not found: " + fileName);
-        System.exit(1);
-        }
-      }
+      seed = Math.abs((int)(Math.random() * 10000));
+      randgen = new Random(seed);
+      getWords();
+      addAllWords();
 
   public WordSearch( int rows, int cols, String fileName, int randSeed) {
     if (rows < 0 || cols < 0) {
       throw new IllegalArgumentException("Cannot take in negative rows / cols.");
     }
       data = new char[rows][cols];
-    wordsToAdd = new ArrayList();
+    wordsToAdd = new ArrayList(<String>);
       wordsAdded = new ArrayList();
       randgen = new Random(randSeed);
       try {
