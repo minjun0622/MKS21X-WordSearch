@@ -1,4 +1,10 @@
 //Minjun Seo
+/*
+things to add during the weekend.
+the main
+addAllWords
+this is so hard i hateeeeé
+*/
 import java.util.*;
 import java.io.*;
 public class WordSearch {
@@ -11,7 +17,7 @@ public class WordSearch {
 //Constructors
   public WordSearch( int rows, int cols, String fileName) {
     if (rows  < 0 || cols < 0) {
-      throw new IllegalArgumentException("Rows or columns can't be negative.")
+      throw new IllegalArgumentException("Rows or columns can't be negative.");
     }
       data = new char[rows][cols];
       wordsToAdd = new ArrayList();
@@ -75,62 +81,70 @@ public WordSearch (filename, rows, coles, seed boolean key) {
     public String toString(){
       String s = "";
       for (int i = 0; i < data.length; i++) {
-          s += '|'
           for (int x = 0; x < data[i].length; x++) {
-            s += data[i][x];
-            if (x != data[i].length - 1) {
-              s += "";
+            s += " " + data[i][x];
             }
+          s += '|' + "\n" + '|';
           }
-          s += '|';
-          if (i != data.length - 1) {
-            s += "\n";
-          }
-        }
         s += "\n" + "Words: " + wordsAdded + " (Seed: " + seed + ")";
         return s;
       }
 
-private boolean addWord(int row, int col, String word, int rowIncrement, int colIncrement) {
+public boolean addWord(int row, int col, String word, int rowIncrement, int colIncrement) {
 
-if ( (colIncrement = 0 && rowIncrement = 0 )  {
+if (colIncrement == 0 && rowIncrement == 0)  {
   return false;
   //checks for negative row, col, and if rowIncrement and colIncrement are zero.
 }
-  if (col + (word.length() * colIncrement) > data[0].length){
-        return false;
-      }
-  //checks if the word is greater than col.
-  if (row + (word.length() * rowIncrement) > data.length){
-        return false;
-      }
-      //checks rows.
-  if (col + (word.length() * colIncrement) < 0 ){
-        return false;
-      }
-      //checks col.
-  if (row + (word.length() * rowIncrement) < 0 ){
-        return false;
-      }
-      //checks col.
+if (rowIncrement < -1 || rowIncrement > 1 || colIncrement < -1 || colIncrement > 1) {
+  return false;
+}
 for (int i = 0; i < word.length(); i++) {
-  if (data[row][col] == '_' || data[row][col] == word.charAt(i)) {
-    data[row][col] = word.charAt(i);
-    row += rowIncrement;
-    col += colIncrement;
-    }
-    else {
-      return false;
-    }
+  if ( (i + row)  * rowIncrement  < 0  || (i + col) * colIncrement < 0) {
+    return false;
   }
+  //checks if the word is too small to go on the row / col.
+  if ( (i + row) * rowIncrement <= word.length() || (i + col) * colIncrement <= data[(row + i) * rowIncrement].length) {
+    return false;
+  }
+  if (data[(row + i) * rowIncrement][(col + i) * colIncrement] != '_' && data[(row + i) * rowIncrement][(col + i) * colIncrement] = word.charAt(i)){
+    return false;
+  }
+}
+for (int x = 0; x < word.length(); x++) {
+  data[(x * row) + rowIncrement][(col * x) + colIncrement] = word.charAt(x);
+}
   return true;
 }
-
+/*get random word, random increments. Use while loop and then try a lot of times.
+if the same word doesn't fit, get another word and try a set number of times.
+not every position.
+*/
 private void addAllWords() {
-  needAdd = getWord(fileName);
-  randgen = new Random(1);
-  addWord(randgen )
-  
-
-
-  }
+  int x = 0;
+  while (wordsToAdd.size() > 0 && x < 30) {
+    int x2 = 0;
+    int index = Math.abs(randgen.nextInt() % wordsToAdd.size());
+    int rowIncrement = randgen.nextInt(3) - 1;
+    int colIncrement = randgen.nextInt(3) - 1;
+    int row = randgen.nextInt() % data.length;
+    int col = randgen.nextInt() % data[0].length;
+    String word = wordsToAdd.get(index);
+      while (x2 < 1000) {
+        if (addWord(word, row, col, rowIncrement, colIncrement) ) {
+            wordsAdded.add(word);
+            wordsToAdd.remove(index);
+              x2 = 1000;
+            }
+            else {
+              row = randgen.nextInt() % data.length ;
+              col = randgen.nextInt() % data[0].length ;
+              rowIncrement = randgen.nextInt(3) - 1;
+              colIncrement = randgen.nextInt(3) - 1;
+              x2++;
+            }
+          }
+          x++;
+        }
+      }
+    }
