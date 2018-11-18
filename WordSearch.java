@@ -48,7 +48,7 @@ public class WordSearch {
       }
     }
   catch (FileNotFoundException e) {
-    System.out.println("The following file does not exist: " + fileName) ;
+    System.out.println("File does not exist: " + fileName) ;
       }
   }
 /*
@@ -70,46 +70,35 @@ public WordSearch (filename, rows, coles, seed boolean key) {
     }
 
     public String toString(){
-        String s = "" ;
+        String s = "|";
         for (int i = 0 ; i < data.length ; ++i) {
-          s += "|" ;
           for (int x = 0 ; x < data[i].length ; ++x) {
-            if (x < data[i].length-1) {
-              s += data[i][x] + " ";
+            s += " " + data[i][x];
             }
-            else {
-              s += data[i][x];
-            }
+            s += "|" + '\n' + "|";
           }
-          s+= "|\n";
+          s += '\n';
+          s += "Words: " + wordsAdded;
+          s += '\n';
+          s += "(seed: " + seed + ")";
+          return s;
         }
-        return s;
-      }
 
 public boolean addWord(String word, int row, int col, int rowIncrement, int colIncrement) {
-
-if (colIncrement == 0 && rowIncrement == 0)  {
-  return false;
-  //checks for negative row, col, and if rowIncrement and colIncrement are zero.
-}
-if (rowIncrement < -1 || rowIncrement > 1 || colIncrement < -1 || colIncrement > 1) {
-  return false;
-}
-for (int i = 0; i < word.length(); i++) {
-  if ( (i + row)  * rowIncrement  < 0  || (i + col) * colIncrement < 0) {
-    return false;
+  for(int i = 0; i < word.length(); i++){
+    if(row < 0 || col < 0 || rowIncrement == 0 && colIncrement == 0 || row + i * rowIncrement < 0 || col + i * colIncrement < 0){
+      return false;
+    }
+    if(row + i * rowIncrement >= data.length || col + i * colIncrement >= data[row + i * rowIncrement].length){
+      return false;
+    }
+    if(data[row + i * rowIncrement][col + i * colIncrement] != '_' && data[row + i * rowIncrement][col + i * colIncrement] != word.charAt(i)) {
+      return false;
+    }
   }
-  //checks if the word is too small to go on the row / col.
-  if ( (i + row) * rowIncrement <= word.length() || (i + col) * colIncrement <= data[(row + i) * rowIncrement].length) {
-    return false;
+  for(int x = 0; x < word.length(); x++){
+    data[row + x * rowIncrement][col + x * colIncrement] = word.charAt(x);
   }
-  if ( (data[(row + i) * rowIncrement][(col + i) * colIncrement] != '_') && data[(row + i) * rowIncrement][(col + i) * colIncrement] != word.charAt(i)) {
-    return false;
-  }
-}
-for (int x = 0; x < word.length(); x++) {
-  data[(x * row) + rowIncrement][(col * x) + colIncrement] = word.charAt(x);
-}
   return true;
 }
 /*get random word, random increments. Use while loop and then try a lot of times.
