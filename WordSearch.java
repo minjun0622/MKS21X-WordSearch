@@ -15,12 +15,12 @@ public class WordSearch {
       throw new IllegalArgumentException("Rows or columns can't be negative.");
     }
       data = new char[rows][cols];
+      clear();
       wordsToAdd = new ArrayList<String>();
       wordsAdded = new ArrayList<String>();
-      clear();
       seed = Math.abs((int)(Math.random() * 10000));
       randgen = new Random(seed);
-      getWords();
+      getWords(fileName);
       addAllWords();
 
   public WordSearch( int rows, int cols, String fileName, int randSeed) {
@@ -28,22 +28,27 @@ public class WordSearch {
       throw new IllegalArgumentException("Cannot take in negative rows / cols.");
     }
       data = new char[rows][cols];
-    wordsToAdd = new ArrayList(<String>);
-      wordsAdded = new ArrayList();
-      randgen = new Random(randSeed);
+      clear();
+      wordsToAdd = new ArrayList<String>();
+      wordsAdded = new ArrayList<String>();
+      seed = randSeed;
+      randgen = new Random(seed);
+      getWords(fileName);
+      addAllWords();
+    }
+
+    public void getWords (String fileName) {
       try {
         File f = new File(fileName);
-        Scanner s = new Scanner(f);
-        while (s.isNext()) {
-          String str = s.nextLine().toUpperCase();
-          wordsToAdd.add(str);
-          wordsAdded.add(str);
-        }
-      } catch (FileNotFoundException e ) {
-        System.out.println("File not found: " + fileName);
-        System.exit(1);
+        Scanner q = new Scanner(f);
+        while (q.hasNext()) {
+          wordsToAdd.add(word.toUpperCase());
       }
     }
+  catch (FileNotFoundException e) {
+    System.out.println("The following file does not exist: " + fileName) ;
+      }
+  }
 /*
 public WordSearch (filename, rows, coles, seed boolean key) {
   data = new[][];
@@ -63,14 +68,19 @@ public WordSearch (filename, rows, coles, seed boolean key) {
     }
 
     public String toString(){
-      String s = "";
-      for (int i = 0; i < data.length; i++) {
-          for (int x = 0; x < data[i].length; x++) {
-            s += " " + data[i][x];
+        String s = "" ;
+        for (int i = 0 ; i < data.length ; ++i) {
+          s += "|" ;
+          for (int x = 0 ; x < data[i].length ; ++x) {
+            if (x < data[i].length-1) {
+              s += data[i][x] + " ";
             }
-          s += '|' + "\n" + '|';
+            else {
+              s += data[i][x];
+            }
           }
-        s += "\n" + "Words: " + wordsAdded + " (Seed: " + seed + ")";
+          s+= "|\n";
+        }
         return s;
       }
 
@@ -91,7 +101,7 @@ for (int i = 0; i < word.length(); i++) {
   if ( (i + row) * rowIncrement <= word.length() || (i + col) * colIncrement <= data[(row + i) * rowIncrement].length) {
     return false;
   }
-  if (data[(row + i) * rowIncrement][(col + i) * colIncrement] != '_' && data[(row + i) * rowIncrement][(col + i) * colIncrement] = word.charAt(i)){
+  if ( (data[(row + i) * rowIncrement][(col + i) * colIncrement] != '_') && data[(row + i) * (rowIncrement][(col + i) * colIncrement] != word.charAt(i))) {
     return false;
   }
 }
@@ -131,4 +141,9 @@ private void addAllWords() {
           x++;
         }
       }
-    }
+
+public static void main(String args[]) {
+
+
+}
+   }
