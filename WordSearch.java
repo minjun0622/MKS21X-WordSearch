@@ -22,6 +22,7 @@ public class WordSearch {
       randgen = new Random(seed);
       getWords(fileName);
       addAllWords();
+    }
 
   public WordSearch( int rows, int cols, String fileName, int randSeed) {
     if (rows < 0 || cols < 0) {
@@ -42,6 +43,7 @@ public class WordSearch {
         File f = new File(fileName);
         Scanner q = new Scanner(f);
         while (q.hasNext()) {
+          String word = q.next();
           wordsToAdd.add(word.toUpperCase());
       }
     }
@@ -84,7 +86,7 @@ public WordSearch (filename, rows, coles, seed boolean key) {
         return s;
       }
 
-public boolean addWord(int row, int col, String word, int rowIncrement, int colIncrement) {
+public boolean addWord(String word, int row, int col, int rowIncrement, int colIncrement) {
 
 if (colIncrement == 0 && rowIncrement == 0)  {
   return false;
@@ -141,9 +143,4 @@ private void addAllWords() {
           x++;
         }
       }
-
-public static void main(String args[]) {
-
-
-}
-   }
+    }
