@@ -101,7 +101,7 @@ for (int i = 0; i < word.length(); i++) {
   if ( (i + row) * rowIncrement <= word.length() || (i + col) * colIncrement <= data[(row + i) * rowIncrement].length) {
     return false;
   }
-  if ( (data[(row + i) * rowIncrement][(col + i) * colIncrement] != '_') && data[(row + i) * (rowIncrement][(col + i) * colIncrement] != word.charAt(i))) {
+  if ( (data[(row + i) * rowIncrement][(col + i) * colIncrement] != '_') && data[(row + i) * rowIncrement][(col + i) * colIncrement] != word.charAt(i)) {
     return false;
   }
 }
