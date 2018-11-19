@@ -69,7 +69,7 @@ public WordSearch (filename, rows, coles, seed boolean key) {
       }
     }
     public void randomize() {
-      for (int i = 0; i < data.length - 1; i++) {
+      for (int i = 0; i <= data.length - 1; i++) {
         for (int x = 0; x <= data[i].length -1 ; x++) {
           if (data[i][x] == ' ') {
             data[i][x] = (char)((Math.abs(randgen.nextInt() % 25)) + 65);
@@ -150,7 +150,6 @@ private void addAllWords() {
         "Remember, seed is between 0 and 10,000 and row/col are greater than 0." + "\n" +
         "To access the answer, type the seed and (key) as the input.");
       }
-      else {
         if (args.length == 3) {
           int row = Integer.parseInt(args[0]);
           int col = Integer.parseInt(args[1]);
@@ -177,7 +176,6 @@ private void addAllWords() {
             System.out.println(ws);
           }
           }
-        }
       }
           catch(NumberFormatException e) {
             System.out.println("Wrong format, can't convert Strings to int. " + "\n" +
