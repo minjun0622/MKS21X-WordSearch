@@ -9,16 +9,6 @@ public class WordSearch {
   private ArrayList<String>wordsToAdd;
   private ArrayList<String>wordsAdded;
 
-  public void randomize() {
-    for (int i = 0; i < data.length -1; i++) {
-      for (int x = 0; x <= data[i].length - 1; x++) {
-        if (data[i][x] == ' ') {
-          data[i][x] = (char)((Math.abs(randgen.nextInt() % 25)) + 65);
-        }
-      }
-    }
-  }
-
 //Constructors
   public WordSearch( int rows, int cols, String fileName) {
     if (rows  < 0 || cols < 0) {
@@ -78,6 +68,15 @@ public WordSearch (filename, rows, coles, seed boolean key) {
         }
       }
     }
+    public void randomize() {
+      for (int i = 0; i < data.length - 1; i++) {
+        for (int x = 0; x <= data[i].length -1 ; x++) {
+          if (data[i][x] == ' ') {
+            data[i][x] = (char)((Math.abs(randgen.nextInt() % 25)) + 65);
+          }
+        }
+      }
+    }
 
     public String toString(){
         String s = "|";
@@ -102,7 +101,7 @@ public boolean addWord(String word, int row, int col, int rowIncrement, int colI
     if(row + i * rowIncrement >= data.length || col + i * colIncrement >= data[row + i * rowIncrement].length){
       return false;
     }
-    if(data[row + i * rowIncrement][col + i * colIncrement] != '_' && data[row + i * rowIncrement][col + i * colIncrement] != word.charAt(i)) {
+    if(data[row + i * rowIncrement][col + i * colIncrement] != ' ' && data[row + i * rowIncrement][col + i * colIncrement] != word.charAt(i)) {
       return false;
     }
   }
@@ -143,30 +142,20 @@ private void addAllWords() {
         }
       }
 
-    public static void main (String[] args) throws FileNotFoundException{
+    public static void main(String[] args) throws FileNotFoundException{
       try{
-      if (args.length == 2 || args.legnth == 1 || args.length == 0) {
-        System.out.println("Insufficinet number of arguments.");
-      }
-      if (Integer.parseInt(args[0]) <= 0 || Integer.parseInt(args[1]) <= 0) {
-        System.out.println("The rows and the columns must be greater than 0.");
-      }
-      if (args.length > 6) {
-        System.out.println("Way too many arguments.");
-      }
-      if (Integer.parseInt(args[4]) < 0 || Integer.parseInt(args[4]) > 10000) {
-        System.out.println("Seed must be greater than equal to 0 and less than or equal to 10,000.");
-      }
       if (args.length == 0) {
         System.out.println("WordSearch can be manipulated by adding numbers/words after. 1st number is the row, second is the col, third the textfile, (optional seed), (optional key)" +
-        "\n" + "To get the answer, enter the seed and the key");
+        "\n" + "To get the answer, enter the seed and the key)" + "\n" +
+        "Remember, seed is between 0 and 10,000 and row/col are greater than 0." + "\n" +
+        "To access the answer, type the seed and (key) as the input.");
       }
-      else{
+      else {
         if (args.length == 3) {
           int row = Integer.parseInt(args[0]);
           int col = Integer.parseInt(args[1]);
           WordSearch ws = new WordSearch(row, col, args[2]);
-          ws.ramdomize();
+          ws.randomize();
           System.out.println(ws);
         }
         if (args.length == 4) {
