@@ -9,27 +9,16 @@ public class WordSearch {
   private ArrayList<String>wordsToAdd;
   private ArrayList<String>wordsAdded;
 
-// main time
-public static void main (String[] args) {
-  if (args.length() == 2 || args.legnth() == 1 || args.length() == 0) {
-    System.out.println("Insufficinet number of arguments.");
-  }
-  if (Integer.parseInt(args[0]) <= 0 || Integer.parseInt(args[1]) <= 0) {
-    System.out.println("The rows and the columns must be greater than 0.");
-  }
-  if (args.length() > 6) {
-    System.out.println("Way too many arguments.");
-  }
-  if (Integer.parseInt(args[4]) < 0 || Integer.parseInt(args[4]) > 10000) {
-    System.out.println("Seed must be greater than equal to 0 and less than or equal to 10,000.")
-  }
-  else {
-    WordSearch ws = new WordSearch(1, 1, args[2]);
-    if (args.length() == 3) {
-      ws = new WordSearch(Integer.parseInt(args[0]), Integer.parseInt(args[1]), Integer.parseInt(args[2]))
+  public void randomize() {
+    for (int i = 0; i < data.length -1; i++) {
+      for (int x = 0; x <= data[i].length - 1; x++) {
+        if (data[i][x] == ' ') {
+          data[i][x] = (char)((Math.abs(randgen.nextInt() % 25)) + 65);
+        }
+      }
     }
   }
-}
+
 //Constructors
   public WordSearch( int rows, int cols, String fileName) {
     if (rows  < 0 || cols < 0) {
@@ -85,7 +74,7 @@ public WordSearch (filename, rows, coles, seed boolean key) {
     private void clear(){
       for (int i = 0; i < data.length; i++) {
         for (int x = 0; x < data[i].length; x++) {
-          data[i][x] = '_';
+          data[i][x] = ' ';
         }
       }
     }
@@ -153,4 +142,58 @@ private void addAllWords() {
           x++;
         }
       }
-    }
+
+    public static void main (String[] args) throws FileNotFoundException{
+      try{
+      if (args.length == 2 || args.legnth == 1 || args.length == 0) {
+        System.out.println("Insufficinet number of arguments.");
+      }
+      if (Integer.parseInt(args[0]) <= 0 || Integer.parseInt(args[1]) <= 0) {
+        System.out.println("The rows and the columns must be greater than 0.");
+      }
+      if (args.length > 6) {
+        System.out.println("Way too many arguments.");
+      }
+      if (Integer.parseInt(args[4]) < 0 || Integer.parseInt(args[4]) > 10000) {
+        System.out.println("Seed must be greater than equal to 0 and less than or equal to 10,000.");
+      }
+      if (args.length == 0) {
+        System.out.println("WordSearch can be manipulated by adding numbers/words after. 1st number is the row, second is the col, third the textfile, (optional seed), (optional key)" +
+        "\n" + "To get the answer, enter the seed and the key");
+      }
+      else{
+        if (args.length == 3) {
+          int row = Integer.parseInt(args[0]);
+          int col = Integer.parseInt(args[1]);
+          WordSearch ws = new WordSearch(row, col, args[2]);
+          ws.ramdomize();
+          System.out.println(ws);
+        }
+        if (args.length == 4) {
+          int row = Integer.parseInt(args[0]);
+          int col = Integer.parseInt(args[1]);
+          WordSearch ws = new WordSearch(row, col, args[2], Integer.parseInt(args[3]));
+          ws.randomize();
+          System.out.println(ws);
+        }
+        if (args.length == 5) {
+          int row = Integer.parseInt(args[0]);
+          int col = Integer.parseInt(args[1]);
+          WordSearch ws = new WordSearch(row, col, args[2], Integer.parseInt(args[3]));
+          if (args[4].equals("key")) {
+            System.out.println(ws);
+          }
+          else {
+            ws.randomize();
+            System.out.println(ws);
+          }
+          }
+        }
+      }
+          catch(NumberFormatException e) {
+            System.out.println("Wrong format, can't convert Strings to int. " + "\n" +
+            "Valid format: java WordSearch row col textFile seed key");
+            System.exit(1);
+          }
+        }
+        }
