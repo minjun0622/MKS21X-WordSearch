@@ -51,16 +51,7 @@ public class WordSearch {
     System.out.println("File does not exist: " + fileName) ;
       }
   }
-/*
-public WordSearch (filename, rows, coles, seed boolean key) {
-  data = new[][];
-  clear();
 
-  if (!key {
-
-  }
-}
-*/
     private void clear(){
       for (int i = 0; i < data.length; i++) {
         for (int x = 0; x < data[i].length; x++) {
@@ -68,9 +59,10 @@ public WordSearch (filename, rows, coles, seed boolean key) {
         }
       }
     }
+    //since there is 26 letters in the alphabet, use random to fill them in.
     public void randomize() {
-      for (int i = 0; i <= data.length - 1; i++) {
-        for (int x = 0; x <= data[i].length -1 ; x++) {
+      for (int i = 0; i < data.length; i++) {
+        for (int x = 0; x < data[i].length; x++) {
           if (data[i][x] == ' ') {
             data[i][x] = (char)((Math.abs(randgen.nextInt() % 25)) + 65);
           }
@@ -78,24 +70,27 @@ public WordSearch (filename, rows, coles, seed boolean key) {
       }
     }
 
-    public String toString(){
+    public String toString() {
         String s = "|";
-        for (int i = 0 ; i < data.length ; ++i) {
-          for (int x = 0 ; x < data[i].length ; ++x) {
+        for (int i = 0 ; i < data.length; ++i) {
+          for (int x = 0 ; x < data[i].length; ++x) {
             s += " " + data[i][x];
             }
             s += "|" + '\n' + "|";
           }
-          s += '\n';
+          s += "\n";
           s += "Words: " + wordsAdded;
-          s += '\n';
-          s += "(seed: " + seed + ")";
+          s += "\n";
+          s += "(Seed: " + seed + ")";
           return s;
         }
 
 public boolean addWord(String word, int row, int col, int rowIncrement, int colIncrement) {
   for(int i = 0; i < word.length(); i++){
     if(row < 0 || col < 0 || rowIncrement == 0 && colIncrement == 0 || row + i * rowIncrement < 0 || col + i * colIncrement < 0){
+      return false;
+    }
+    if (rowIncrement < -1 || colIncrement < -1 || rowIncrement > 2 || colIncrement > 2) {
       return false;
     }
     if(row + i * rowIncrement >= data.length || col + i * colIncrement >= data[row + i * rowIncrement].length){
@@ -112,7 +107,7 @@ public boolean addWord(String word, int row, int col, int rowIncrement, int colI
 }
 /*get random word, random increments. Use while loop and then try a lot of times.
 if the same word doesn't fit, get another word and try a set number of times.
-not every position.
+not every position. Try 30 words and each 1000 times.
 */
 private void addAllWords() {
   int x = 0;
@@ -150,27 +145,34 @@ private void addAllWords() {
         "Remember, seed is between 0 and 10,000 and row/col are greater than 0." + "\n" +
         "To access the answer, type the seed and (key) as the input.");
       }
-        if (args.length == 3) {
-          int row = Integer.parseInt(args[0]);
-          int col = Integer.parseInt(args[1]);
-          WordSearch ws = new WordSearch(row, col, args[2]);
-          ws.randomize();
+      else if (args.length == 1) {
+        System.out.println("Insufficient arguments. Format is" + "\n" +
+        "java WordSearch row col textfile (optional seed) (optional key)");
+      }
+      else if (args.length == 2) {
+        System.out.println("Which file are you talking about?");
+      }
+      else if (args.length == 3) {
+        int row = Integer.parseInt(args[0]);
+        int col = Integer.parseInt(args[1]);
+        WordSearch ws = new WordSearch(row, col, args[2]);
+        ws.randomize();
+        System.out.println(ws);
+      }
+      else if (args.length == 4) {
+        int row = Integer.parseInt(args[0]);
+        int col = Integer.parseInt(args[1]);
+        WordSearch ws = new WordSearch(row, col, args[2], Integer.parseInt(args[3]));
+        ws.randomize();
+        System.out.println(ws);
+      }
+      else if (args.length == 5) {
+        int row = Integer.parseInt(args[0]);
+        int col = Integer.parseInt(args[1]);
+        WordSearch ws = new WordSearch(row, col, args[2], Integer.parseInt(args[3]));
+        if (args[4].equals("key")) {
           System.out.println(ws);
         }
-        if (args.length == 4) {
-          int row = Integer.parseInt(args[0]);
-          int col = Integer.parseInt(args[1]);
-          WordSearch ws = new WordSearch(row, col, args[2], Integer.parseInt(args[3]));
-          ws.randomize();
-          System.out.println(ws);
-        }
-        if (args.length == 5) {
-          int row = Integer.parseInt(args[0]);
-          int col = Integer.parseInt(args[1]);
-          WordSearch ws = new WordSearch(row, col, args[2], Integer.parseInt(args[3]));
-          if (args[4].equals("key")) {
-            System.out.println(ws);
-          }
           else {
             ws.randomize();
             System.out.println(ws);
