@@ -9,6 +9,27 @@ public class WordSearch {
   private ArrayList<String>wordsToAdd;
   private ArrayList<String>wordsAdded;
 
+// main time
+public static void main (String[] args) {
+  if (args.length() == 2 || args.legnth() == 1 || args.length() == 0) {
+    System.out.println("Insufficinet number of arguments.");
+  }
+  if (Integer.parseInt(args[0]) <= 0 || Integer.parseInt(args[1]) <= 0) {
+    System.out.println("The rows and the columns must be greater than 0.");
+  }
+  if (args.length() > 6) {
+    System.out.println("Way too many arguments.");
+  }
+  if (Integer.parseInt(args[4]) < 0 || Integer.parseInt(args[4]) > 10000) {
+    System.out.println("Seed must be greater than equal to 0 and less than or equal to 10,000.")
+  }
+  else {
+    WordSearch ws = new WordSearch(1, 1, args[2]);
+    if (args.length() == 3) {
+      ws = new WordSearch(Integer.parseInt(args[0]), Integer.parseInt(args[1]), Integer.parseInt(args[2]))
+    }
+  }
+}
 //Constructors
   public WordSearch( int rows, int cols, String fileName) {
     if (rows  < 0 || cols < 0) {
